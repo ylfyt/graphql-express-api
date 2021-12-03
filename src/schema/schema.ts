@@ -3,7 +3,7 @@ import _ from 'lodash';
 
 import { authors, books } from '../db/books';
 
-const BookType = new GraphQLObjectType({
+const BookType: GraphQLObjectType = new GraphQLObjectType({
 	name: 'Book',
 	fields: () => ({
 		id: { type: GraphQLID },
@@ -18,7 +18,7 @@ const BookType = new GraphQLObjectType({
 	}),
 });
 
-const AuthorType = new GraphQLObjectType({
+const AuthorType: GraphQLObjectType = new GraphQLObjectType({
 	name: 'Author',
 	fields: () => ({
 		id: { type: GraphQLID },
