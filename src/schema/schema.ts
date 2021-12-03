@@ -7,7 +7,7 @@ import Authors from '../models/Authors';
 const BookType: GraphQLObjectType = new GraphQLObjectType({
 	name: 'Book',
 	fields: () => ({
-		id: { type: GraphQLID },
+		_id: { type: GraphQLID },
 		title: { type: GraphQLString },
 		year: { type: GraphQLInt },
 		author: {
@@ -22,12 +22,12 @@ const BookType: GraphQLObjectType = new GraphQLObjectType({
 const AuthorType: GraphQLObjectType = new GraphQLObjectType({
 	name: 'Author',
 	fields: () => ({
-		id: { type: GraphQLID },
+		_id: { type: GraphQLID },
 		name: { type: GraphQLString },
 		books: {
 			type: new GraphQLList(BookType),
 			resolve: (parent, args) => {
-				return Books.find({ authorId: parent.id });
+				return Books.find({ authorId: parent._id });
 			},
 		},
 	}),
@@ -53,13 +53,13 @@ const RootQuery: GraphQLObjectType = new GraphQLObjectType({
 		books: {
 			type: new GraphQLList(BookType),
 			resolve: (parent, args) => {
-				return Books.find({});
+				return Books.find();
 			},
 		},
 		authors: {
 			type: new GraphQLList(AuthorType),
 			resolve: (parent, args) => {
-				return Authors.find({});
+				return Authors.find();
 			},
 		},
 	},
