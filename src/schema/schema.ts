@@ -1,7 +1,7 @@
 import { GraphQLObjectType, GraphQLID, GraphQLString, GraphQLSchema, GraphQLInt, GraphQLList } from 'graphql';
 import _ from 'lodash';
 
-import { authors, books } from '../db/books';
+import { authors, books } from '../db/db';
 
 const BookType: GraphQLObjectType = new GraphQLObjectType({
 	name: 'Book',
