@@ -1,7 +1,8 @@
 import { GraphQLObjectType, GraphQLID, GraphQLString, GraphQLSchema, GraphQLInt, GraphQLList } from 'graphql';
 import _ from 'lodash';
 
-import { authors, books } from '../db/db';
+import Books from '../models/Books';
+import Authors from '../models/Authors';
 
 const BookType: GraphQLObjectType = new GraphQLObjectType({
 	name: 'Book',
@@ -12,7 +13,7 @@ const BookType: GraphQLObjectType = new GraphQLObjectType({
 		author: {
 			type: AuthorType,
 			resolve: (parent, args) => {
-				return _.find(authors, { id: parent.authorId });
+				return Authors.findById(parent.authorId);
 			},
 		},
 	}),
@@ -26,7 +27,7 @@ const AuthorType: GraphQLObjectType = new GraphQLObjectType({
 		books: {
 			type: new GraphQLList(BookType),
 			resolve: (parent, args) => {
-				return _.filter(books, { authorId: parent.id });
+				return Books.find({ authorId: parent.id });
 			},
 		},
 	}),
@@ -39,26 +40,26 @@ const RootQuery: GraphQLObjectType = new GraphQLObjectType({
 			type: BookType,
 			args: { id: { type: GraphQLID } },
 			resolve: (parent, args) => {
-				return _.find(books, { id: args.id });
+				return Books.findById(args.id);
 			},
 		},
 		author: {
 			type: AuthorType,
 			args: { id: { type: GraphQLID } },
 			resolve: (parent, args) => {
-				return _.find(authors, { id: args.id });
+				return Authors.findById(args.id);
 			},
 		},
 		books: {
 			type: new GraphQLList(BookType),
 			resolve: (parent, args) => {
-				return books;
+				return Books.find({});
 			},
 		},
 		authors: {
 			type: new GraphQLList(AuthorType),
 			resolve: (parent, args) => {
-				return authors;
+				return Authors.find({});
 			},
 		},
 	},
