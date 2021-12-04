@@ -38,16 +38,16 @@ const RootQuery: GraphQLObjectType = new GraphQLObjectType({
 	fields: {
 		book: {
 			type: BookType,
-			args: { id: { type: GraphQLID } },
+			args: { _id: { type: GraphQLID } },
 			resolve: (parent, args) => {
-				return Books.findById(args.id);
+				return Books.findById(args._id);
 			},
 		},
 		author: {
 			type: AuthorType,
-			args: { id: { type: GraphQLID } },
+			args: { _id: { type: GraphQLID } },
 			resolve: (parent, args) => {
-				return Authors.findById(args.id);
+				return Authors.findById(args._id);
 			},
 		},
 		books: {
@@ -65,6 +65,41 @@ const RootQuery: GraphQLObjectType = new GraphQLObjectType({
 	},
 });
 
+const Mutation = new GraphQLObjectType({
+	name: 'Mutation',
+	fields: {
+		addAuthor: {
+			type: AuthorType,
+			args: {
+				name: { type: GraphQLString },
+			},
+			resolve: (parent, args) => {
+				const author = new Authors({ name: args.name });
+				return author.save();
+			},
+		},
+
+		addBook: {
+			type: BookType,
+			args: {
+				title: { type: GraphQLString },
+				year: { type: GraphQLInt },
+				authorId: { type: GraphQLID },
+			},
+			resolve: (parent, args) => {
+				const book = new Books({
+					title: args.title,
+					year: args.year,
+					authorId: args.authorId,
+				});
+
+				return book.save();
+			},
+		},
+	},
+});
+
 export default new GraphQLSchema({
 	query: RootQuery,
+	mutation: Mutation,
 });
