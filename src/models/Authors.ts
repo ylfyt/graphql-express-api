@@ -1,8 +1,7 @@
 import mongoose from 'mongoose';
 
 const authorSchema = new mongoose.Schema({
-	id: String,
-	name: String,
+	name: { type: String, required: true },
 });
 
 export default mongoose.model('Authors', authorSchema);
