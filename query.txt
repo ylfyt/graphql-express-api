@@ -1,0 +1,67 @@
+# Add Author
+# mutation{
+#   addAuthor(name: "Wow"){
+# 		_id
+#   	name
+#   }
+# }
+
+# # Add Books
+# mutation {
+#   addBook(title: "Buku test", year: 1999, authorId: "61aa84330edc2916a4e75678"){
+#     _id
+#     title
+#     year
+#     author{
+#       _id
+#       name
+#     }
+#   }
+# }
+
+# Get book by id
+# {
+#   book(_id: "61aa85fe5974084d7c316c0b"){
+#     _id
+#     title
+#     year
+#     author{
+#       _id
+#       name
+#     }
+#   }
+# }
+
+# Get author by id
+# {
+#   author (_id: "61ab1e31374158ea43482391"){
+#     _id 
+#     name
+#     books{
+#       _id
+#       title
+#       year
+#     }
+#   }
+# }
+
+# Get Authors
+# {
+#   authors{
+#     _id
+#     name
+#   }
+# }
+
+# # Get Books
+# {
+#   books{
+#   	_id
+#     title
+#     year
+#     author{
+#     	_id
+#       name
+#     }
+#   }
+# }
